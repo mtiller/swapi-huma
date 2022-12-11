@@ -7,26 +7,26 @@ import (
 	"github.com/mtiller/go-claxon"
 )
 
-type Preamble struct {
+type inlinePreamble struct {
 	Schema string `json:"$schema,omitempty"`
 	Self   string `json:"$self,omitempty"`
 }
 
-type ShortLink struct {
+type inlineShortLink struct {
 	Href  string `json:"href"`
 	Title string `json:"title,omitempty"`
 	Type  string `json:"type,omitempty"`
 }
 
-type LinksByRel map[string][]ShortLink
+type inlineLinks map[string][]inlineShortLink
 
-type Postamble struct {
-	Links   LinksByRel      `json:"$links,omitempty"`
+type inlinePostscript struct {
+	Links   inlineLinks     `json:"$links,omitempty"`
 	Actions []claxon.Action `json:"$actions,omitempty"`
 }
 
-func Marshal(v interface{}, c claxon.Claxon) ([]byte, error) {
-	pre := Preamble{
+func InlineMarshal(v interface{}, c claxon.Claxon) ([]byte, error) {
+	pre := inlinePreamble{
 		Schema: c.Schema,
 		Self:   c.Self,
 	}
@@ -34,31 +34,31 @@ func Marshal(v interface{}, c claxon.Claxon) ([]byte, error) {
 	if err != nil {
 		return preamble, err
 	}
-	links := LinksByRel{}
+	links := inlineLinks{}
 	for _, link := range c.Links {
 		rel, exists := links[link.Rel]
 		if !exists {
-			rel = []ShortLink{}
+			rel = []inlineShortLink{}
 		}
-		rel = append(rel, ShortLink{
+		rel = append(rel, inlineShortLink{
 			Title: link.Title,
 			Href:  link.Href,
 			Type:  link.Type,
 		})
 		links[link.Rel] = rel
 	}
-	post := Postamble{
+	post := inlinePostscript{
 		Links:   links,
 		Actions: c.Actions,
 	}
-	postamble, err := json.Marshal(post)
+	postscript, err := json.Marshal(post)
 	data, err := json.Marshal(v)
 	if err != nil {
 		return data, err
 	}
 	start := string(preamble[1 : len(preamble)-1])
 	middle := string(data[1 : len(data)-1])
-	end := string(postamble[1 : len(postamble)-1])
+	end := string(postscript[1 : len(postscript)-1])
 
 	parts := []string{}
 	if strings.TrimSpace(start) != "" {

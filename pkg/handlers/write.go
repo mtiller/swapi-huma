@@ -33,7 +33,7 @@ func WriteModel(status int, accept string, ctx huma.Context, v interface{}, c *c
 			}
 			ctx.Write(bytes)
 		} else {
-			bytes, err := Marshal(v, *c)
+			bytes, err := InlineMarshal(v, *c)
 			if err != nil {
 				ctx.WriteError(http.StatusInternalServerError, err.Error())
 				return

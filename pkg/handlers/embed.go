@@ -8,5 +8,5 @@ type Emb[T any] struct {
 }
 
 func (e Emb[T]) MarshalJSON() ([]byte, error) {
-	return Marshal(e.Data, e.Context)
+	return InlineMarshal(e.Data, e.Context)
 }
