@@ -17,13 +17,12 @@ type FilmDetails struct {
 	Episode  int    `json:"episode"`
 	Director string `json:"director"`
 	Release  string `json:"released"`
-	Self     string `json:"$self,omitempty"`
 }
 
 func ListFilms(r *huma.Resource) {
 	r.Get("list-films",
 		"Get a paginated list of films",
-		responses.OK().Model([]FilmDetails{}).ContentType("text/plain"),
+		responses.OK().Model([]Emb[FilmDetails]{}).ContentType("text/plain"),
 		responses.InternalServerError(),
 	).Run(filmListHandler)
 
@@ -32,7 +31,7 @@ func ListFilms(r *huma.Resource) {
 func ShowFilmDetails(r *huma.Resource) {
 	r.Get("film-details",
 		"See details about a specific film",
-		responses.OK().Model(FilmDetails{}).ContentType("text/plain"),
+		responses.OK().Model([]Emb[FilmDetails]{}).ContentType("text/plain"),
 		responses.BadRequest(),
 		responses.InternalServerError(),
 	).Run(filmHandler)
@@ -96,13 +95,18 @@ func filmHandler(ctx huma.Context, input struct {
 	WriteModel(http.StatusOK, input.Accept, ctx, getFilmDetails(selected, 0), *rels)
 }
 
-func getFilmDetails(film data.Film, index int) FilmDetails {
-	return FilmDetails{
-		Title:    film.Fields.Title,
-		Episode:  film.Fields.EpisodeId,
-		Director: film.Fields.Director,
-		Release:  film.Fields.Release,
-		Self:     fmt.Sprintf("/film/%d", film.Id),
+func getFilmDetails(film data.Film, index int) Emb[FilmDetails] {
+	c := &claxon.Claxon{}
+	c.AddLink("self", fmt.Sprintf("/film/%d", film.Id))
+	c.AddLink("collection", "/film")
+	return Emb[FilmDetails]{
+		Data: FilmDetails{
+			Title:    film.Fields.Title,
+			Episode:  film.Fields.EpisodeId,
+			Director: film.Fields.Director,
+			Release:  film.Fields.Release,
+		},
+		Context: *c,
 	}
 }
 
