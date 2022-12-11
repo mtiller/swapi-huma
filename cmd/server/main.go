@@ -1,14 +1,12 @@
 package main
 
-import (
-	"github.com/mtiller/swapi/pkg/data"
-	"github.com/samber/do"
-)
-
 func main() {
+	// Create CI container and populate it with services
+	injector := dependencies()
 
-	injector := do.New()
+	// Generate server application
+	app := application(injector)
 
-	// provides CarService
-	do.Provide(injector, data.DatabaseService)
+	// Run the CLI. When passed no arguments, it starts the server.
+	app.Run()
 }
