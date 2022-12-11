@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/samber/do"
@@ -20,4 +21,18 @@ func Inject(injector *do.Injector) func(next http.Handler) http.Handler {
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+func GetInjector(ctx context.Context) *do.Injector {
+	injector := ctx.Value(doContextKey)
+	if injector != nil {
+		return injector.(*do.Injector)
+	}
+
+	panic(fmt.Errorf("No DI container found"))
+}
+
+func GetService[T any](ctx context.Context) T {
+	injector := GetInjector(ctx)
+	return do.MustInvoke[T](injector)
 }
