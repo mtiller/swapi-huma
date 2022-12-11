@@ -96,8 +96,9 @@ func filmHandler(ctx huma.Context, input struct {
 }
 
 func getFilmDetails(film data.Film, index int) Emb[FilmDetails] {
-	c := &claxon.Claxon{}
-	c.AddLink("self", fmt.Sprintf("/film/%d", film.Id))
+	c := &claxon.Claxon{
+		Self: fmt.Sprintf("/film/%d", film.Id),
+	}
 	c.AddLink("collection", "/film")
 	return Emb[FilmDetails]{
 		Data: FilmDetails{

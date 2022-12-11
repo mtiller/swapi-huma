@@ -9,6 +9,7 @@ import (
 
 type Preamble struct {
 	Schema string `json:"$schema,omitempty"`
+	Self   string `json:"$self,omitempty"`
 }
 
 type ShortLink struct {
@@ -27,6 +28,7 @@ type Postamble struct {
 func Marshal(v interface{}, c claxon.Claxon) ([]byte, error) {
 	pre := Preamble{
 		Schema: c.Schema,
+		Self:   c.Self,
 	}
 	preamble, err := json.Marshal(pre)
 	if err != nil {
