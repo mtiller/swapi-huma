@@ -3,7 +3,7 @@ package data
 type Database struct {
 	Films      []Film
 	People     []People
-	Plants     []Planet
+	Planets    []Planet
 	Species    []Species
 	Starships  []Starship
 	Transports []Transport
@@ -49,7 +49,7 @@ func Load() (Database, error) {
 	return Database{
 		Films:      films,
 		People:     people,
-		Plants:     planets,
+		Planets:    planets,
 		Species:    species,
 		Starships:  starships,
 		Transports: transports,
