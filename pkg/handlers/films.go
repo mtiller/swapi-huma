@@ -40,14 +40,14 @@ func ShowFilmDetails(r *huma.Resource) {
 func filmListHandler(ctx huma.Context) {
 	database := GetService[*data.Database](ctx)
 
-	rels := claxon.Claxon{
-		Links: lo.Map(database.Films, filmLink),
-	}
+	// rels := claxon.Claxon{
+	// 	Links: lo.Map(database.Films, filmLink),
+	// }
 
 	films := lo.Map(database.Films, getFilmDetails)
 
 	ctx.Header().Set("Content-Type", "text/plain")
-	WriteModel(http.StatusOK, "", ctx, films, rels)
+	WriteModel(http.StatusOK, "", ctx, films, nil)
 }
 
 func filmHandler(ctx huma.Context, input struct {
@@ -58,13 +58,11 @@ func filmHandler(ctx huma.Context, input struct {
 	log := middleware.GetLogger(ctx)
 	log.Infof("Input was %+v", input)
 
-	rels := &claxon.Claxon{}
-	rels.AddLink("collection", "/film", "Films")
-
 	id := 1
 	selected, ok := lo.Find(database.Films, func(film data.Film) bool {
 		return film.Id == id
 	})
+
 	if !ok {
 		ctx.AddError(fmt.Errorf("No film found with id of %d", id))
 	}
@@ -74,6 +72,10 @@ func filmHandler(ctx huma.Context, input struct {
 		return
 	}
 
+	details := getFilmDetails(selected, 0)
+	rels := &details.Context
+
+	// Since the response is going to be a single film, let's elaborate on relations
 	for _, character := range selected.Fields.Characters {
 		rels.AddLink("character", fmt.Sprintf("/character/%d", character), database.People[character].Fields.Name)
 	}
@@ -92,14 +94,14 @@ func filmHandler(ctx huma.Context, input struct {
 
 	ctx.Header().Set("Content-Type", "text/plain")
 	log.Infof("Accept: %s", input.Accept)
-	WriteModel(http.StatusOK, input.Accept, ctx, getFilmDetails(selected, 0), *rels)
+	WriteModel(http.StatusOK, input.Accept, ctx, details, nil)
 }
 
 func getFilmDetails(film data.Film, index int) Emb[FilmDetails] {
 	c := &claxon.Claxon{
 		Self: fmt.Sprintf("/film/%d", film.Id),
 	}
-	c.AddLink("collection", "/film")
+	c.AddLink("collection", "/film", "Films")
 	return Emb[FilmDetails]{
 		Data: FilmDetails{
 			Title:    film.Fields.Title,
