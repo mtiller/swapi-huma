@@ -320,6 +320,14 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJ
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
+github.com/mtiller/go-claxon v0.1.1 h1:OrqCsufCUE3lFyFUDmzyoRF39a286Ob52pBe2ZV5E9Q=
+github.com/mtiller/go-claxon v0.1.1/go.mod h1:4NzigRfBh61sQNYZ7H016kOVFbN5AWoAfjDugY6hEBc=
+github.com/mtiller/go-claxon v0.1.2 h1:pAtZbOyKnOTSJ9lRMDH7BRrofAAbV+BFakl5CKALJnk=
+github.com/mtiller/go-claxon v0.1.2/go.mod h1:MQ8nrHQXQNL1hxgghLl1NuYA0qZO5eaZEY0/pAZx9W0=
+github.com/mtiller/rfc8288 v0.0.0-20221210192124-3c38128cf484 h1:GbdBsngnMdrruGuB3N1d4OzIdMY3wmi2DoY//Jstf7w=
+github.com/mtiller/rfc8288 v0.0.0-20221210192124-3c38128cf484/go.mod h1:9SJhM44jzrWEwGjmxZbTFs0CQguXNz57c2DFeiNcLP8=
+github.com/mtiller/rfc8288 v0.1.0 h1:jlIf2Z7osnCPPiRczPXm0lFvOIdlM0Cic+X74f0Xwrc=
+github.com/mtiller/rfc8288 v0.1.0/go.mod h1:9SJhM44jzrWEwGjmxZbTFs0CQguXNz57c2DFeiNcLP8=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/opentracing/opentracing-go v1.2.0 h1:uEJPy/1a5RIPAJ0Ov+OIO8OxWu77jEv+1B0VhjKrZUs=
 github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
