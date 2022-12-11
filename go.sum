@@ -324,6 +324,8 @@ github.com/mtiller/go-claxon v0.1.1 h1:OrqCsufCUE3lFyFUDmzyoRF39a286Ob52pBe2ZV5E
 github.com/mtiller/go-claxon v0.1.1/go.mod h1:4NzigRfBh61sQNYZ7H016kOVFbN5AWoAfjDugY6hEBc=
 github.com/mtiller/go-claxon v0.1.2 h1:pAtZbOyKnOTSJ9lRMDH7BRrofAAbV+BFakl5CKALJnk=
 github.com/mtiller/go-claxon v0.1.2/go.mod h1:MQ8nrHQXQNL1hxgghLl1NuYA0qZO5eaZEY0/pAZx9W0=
+github.com/mtiller/go-claxon v0.1.3 h1:a3gzU7jLUkXFxqYTqTUCt/p7u9gwsgIjPFunhE99d6Y=
+github.com/mtiller/go-claxon v0.1.3/go.mod h1:MQ8nrHQXQNL1hxgghLl1NuYA0qZO5eaZEY0/pAZx9W0=
 github.com/mtiller/rfc8288 v0.0.0-20221210192124-3c38128cf484 h1:GbdBsngnMdrruGuB3N1d4OzIdMY3wmi2DoY//Jstf7w=
 github.com/mtiller/rfc8288 v0.0.0-20221210192124-3c38128cf484/go.mod h1:9SJhM44jzrWEwGjmxZbTFs0CQguXNz57c2DFeiNcLP8=
 github.com/mtiller/rfc8288 v0.1.0 h1:jlIf2Z7osnCPPiRczPXm0lFvOIdlM0Cic+X74f0Xwrc=
