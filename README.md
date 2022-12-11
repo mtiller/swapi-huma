@@ -23,3 +23,8 @@ shows an example of how I've done that using middleware (I may even publish that
 middleware separately since it seems quite useful). Along the way, I'm also
 using the `do`s sibling package [`lo`](https://github.com/samber/lo) for all
 kinds of generics related functionality.
+
+I've included an [`air`](https://github.com/cosmtrek/air) configuration as well.
+Using `air` allows you to automatically recompile the server while developing.
+Just run `air` on the command line (once `air` is installed) and it takes care
+of rebuilding automatically.
