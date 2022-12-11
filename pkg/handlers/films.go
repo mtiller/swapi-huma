@@ -22,7 +22,7 @@ type FilmDetails struct {
 func ListFilms(r *huma.Resource) {
 	r.Get("list-films",
 		"Get a paginated list of films",
-		responses.OK().Model([]Emb[FilmDetails]{}).ContentType("text/plain"),
+		responses.OK().Model([]claxon.Emb[FilmDetails]{}).ContentType("text/plain"),
 		responses.InternalServerError(),
 	).Run(filmListHandler)
 
@@ -31,7 +31,7 @@ func ListFilms(r *huma.Resource) {
 func ShowFilmDetails(r *huma.Resource) {
 	r.Get("film-details",
 		"See details about a specific film",
-		responses.OK().Model([]Emb[FilmDetails]{}).ContentType("text/plain"),
+		responses.OK().Model([]claxon.Emb[FilmDetails]{}).ContentType("text/plain"),
 		responses.BadRequest(),
 		responses.InternalServerError(),
 	).Run(filmHandler)
@@ -77,7 +77,7 @@ func filmHandler(ctx huma.Context, input struct {
 
 	// Since the response is going to be a single film, let's elaborate on relations
 	for _, character := range selected.Fields.Characters {
-		rels.AddLink("character", fmt.Sprintf("/character/%d", character), database.People[character].Fields.Name)
+		rels.AddLink("person", fmt.Sprintf("/person/%d", character), database.People[character].Fields.Name)
 	}
 
 	for _, starship := range selected.Fields.Starships {
@@ -97,12 +97,12 @@ func filmHandler(ctx huma.Context, input struct {
 	WriteModel(http.StatusOK, input.Accept, ctx, details, nil)
 }
 
-func getFilmDetails(film data.Film, index int) Emb[FilmDetails] {
+func getFilmDetails(film data.Film, index int) claxon.Emb[FilmDetails] {
 	c := &claxon.Claxon{
 		Self: fmt.Sprintf("/film/%d", film.Id),
 	}
 	c.AddLink("collection", "/film", "Films")
-	return Emb[FilmDetails]{
+	return claxon.Emb[FilmDetails]{
 		Data: FilmDetails{
 			Title:    film.Fields.Title,
 			Episode:  film.Fields.EpisodeId,

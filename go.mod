@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/danielgtaylor/huma v1.12.3
-	github.com/mtiller/go-claxon v0.1.5
+	github.com/mtiller/go-claxon v0.1.6
 	github.com/mtiller/rfc8288 v0.1.0
 	github.com/samber/do v1.4.1
 	github.com/samber/lo v1.36.0

@@ -27,5 +27,8 @@ func application(injector *do.Injector) *cli.CLI {
 	handlers.ListFilms(app.Resource("/film"))
 	handlers.ShowFilmDetails(app.Resource("/film/{id}"))
 
+	handlers.ListPeople(app.Resource("/person"))
+	handlers.ShowPersonDetails(app.Resource("/person/{id}"))
+
 	return app
 }
